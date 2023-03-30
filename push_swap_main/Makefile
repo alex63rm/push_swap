@@ -6,7 +6,7 @@
 #    By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 15:01:34 by alejarod          #+#    #+#              #
-#    Updated: 2023/03/30 20:55:02 by alejarod         ###   ########.fr        #
+#    Updated: 2023/03/30 20:59:28 by alejarod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ LIBFT_A = $(LIBFT_PATH)/libft_small.a
 SRCS_PATH = ./srcs
 SRCS = ft_check_argv.c ft_cost.c ft_list.c ft_movements.c ft_position.c ft_push.c ft_reverse_rotate.c \
 ft_rotate.c ft_save_numbers.c ft_sort_large.c ft_sort_three.c ft_swap.c ft_utils.c main.c
+HEADER = $(SRCS_PATH)/push_swap.h
 
 OBJS_PATH = ./objs
 OBJS = $(addprefix $(OBJS_PATH)/, $(SRCS:.c=.o))
@@ -91,4 +92,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all test checker clean fclean re
+normi:
+	norminette $(SRCS_PATH)/*.c $(HEADER) 
+
+.PHONY: all test checker clean fclean re normi
