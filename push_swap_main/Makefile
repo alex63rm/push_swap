@@ -6,18 +6,18 @@
 #    By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 15:01:34 by alejarod          #+#    #+#              #
-#    Updated: 2023/02/27 22:14:24 by alejarod         ###   ########.fr        #
+#    Updated: 2023/03/30 20:55:02 by alejarod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # hide terminal output
-.SILENT:
+#.SILENT:
 
 # Variables
 NAME = push_swap
-CC = gcc
-CFLAGS	= -Wall -Werror -Wextra -g3 #-fsanitize=address
-RM = rm -rf
+CC = gcc # -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g3 
+RM = rm
 AR = ar rcs
 
 # Colors (ANSI escape sequence)
@@ -25,32 +25,41 @@ GREEN_PRE = '\033[32m'
 RED_PRE = '\033[31m'
 RESET_BLACK = '\033[0m'
 
-# Paths
-LIBFT_PATH = libft
-SRCS_PATH = srcs
+# External Paths and libraries
+LIBFT_PATH = ./libft
+LIBFT_A = $(LIBFT_PATH)/libft_small.a
 
-# Files
-LIBFT_SRCS = $(wildcard $(LIBFT_PATH)/*.c *.h)
-SRCS = $(wildcard $(SRCS_PATH)/*.c)
-OBJS = $(LIBFT_SRCS:.c=.o) $(SRCS:.c=.o)
+# Project sources and objects
+SRCS_PATH = ./srcs
+SRCS = ft_check_argv.c ft_cost.c ft_list.c ft_movements.c ft_position.c ft_push.c ft_reverse_rotate.c \
+ft_rotate.c ft_save_numbers.c ft_sort_large.c ft_sort_three.c ft_swap.c ft_utils.c main.c
+
+OBJS_PATH = ./objs
+OBJS = $(addprefix $(OBJS_PATH)/, $(SRCS:.c=.o))
+
+#Object rule and move them to the object folder
+$(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c | $(OBJS_PATH)
+	$(CC) $(CFLAGS) -c $^ -o $@
+
 
 # Targets
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	MAKE -C $(LIBFT_PATH)
+	@echo $(GREEN_PRE)"LIBFT_SMALL COMPILED !"$(RESET_BLACK)
+	$(CC) $^ $(LIBFT_A) -o $@
 	@echo $(GREEN_PRE)"PUSH_SWAP COMPILED !"$(RESET_BLACK)
 	@echo "./push_swap <ARGS> to run"
 
-# rule to compile .c into .o
-# $< refers to %.o and $@ refers to %.c
-%.o: %.c %.h
-	@$(CC) $(CFLAGS) -c $< -o $@
+#create the object directory
+$(OBJS_PATH):
+	mkdir $@
 
 #test
 #./push_swap 6 3 4 67 34 12 | ./checker_mac 6 3 4 67 34 12
 NUMS = 500
-ARG = 3 4 5 8 9 2
+ARG = 3 4 5 8 9 2 45 80 934 23 21 13 434
 test: $(NAME)
 	$(eval ARG = $(shell shuf -i 0-5000 -n $(NUMS)))
 	./push_swap $(ARG)
@@ -63,19 +72,21 @@ checker_linux: $(NAME)
 	@./push_swap $(ARG) | wc -l
 
 checker_mac: $(NAME)
-	$(eval ARG = $(shell shuf -i 0-5000 -n $(NUMS)))
+#	$(eval ARG = $(shell shuf -i 0-5000 -n $(NUMS)))
 	./push_swap $(ARG) | ./checker_Mac $(ARG)
 	@echo -n "Instructions: "
 	@./push_swap $(ARG) | wc -l
 
 # removes the .o files
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) -rf $(OBJS_PATH)
+	MAKE -C $(LIBFT_PATH) clean
 	@echo $(RED_PRE)"OBJECT FILES DELETED !"$(RESET_BLACK)
 
 # removes .o files & push_swap executable
 fclean: clean
 	@$(RM) $(NAME)
+	MAKE -C $(LIBFT_PATH) fclean
 	@echo $(RED_PRE)"PUSH_SWAP EXEC DELETED !"$(RESET_BLACK)
 
 re: fclean all
