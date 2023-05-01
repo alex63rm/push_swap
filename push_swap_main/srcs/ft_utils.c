@@ -6,7 +6,7 @@
 /*   By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:05:15 by alejarod          #+#    #+#             */
-/*   Updated: 2023/02/22 20:26:08 by alejarod         ###   ########.fr       */
+/*   Updated: 2023/05/01 19:51:02 by alejarod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,17 @@ char	*ft_create_temp_array(char **argv)
 {
 	int		i;
 	char	*temp_array;
+	char	*tmp2;
 
 	i = 1;
 	temp_array = NULL;
+	tmp2 = NULL;
 	while (argv[i])
 	{
-		temp_array = ft_strjoin_endspace(temp_array, argv[i]);
+		tmp2 = ft_strdup(temp_array);
+		free(temp_array);
+		temp_array = ft_strjoin_endspace(tmp2, argv[i]);
+		free(tmp2);
 		i++;
 	}
 	return (temp_array);

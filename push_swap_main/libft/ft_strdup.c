@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_endspace.c                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 21:26:22 by alejarod          #+#    #+#             */
-/*   Updated: 2023/05/01 19:44:13 by alejarod         ###   ########.fr       */
+/*   Created: 2023/05/01 19:51:52 by alejarod          #+#    #+#             */
+/*   Updated: 2023/05/01 19:54:14 by alejarod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../srcs/push_swap.h"
 
-char	*ft_strjoin_endspace(char *s1, char const *s2)
+char	*ft_strdup(const char *s1)
 {
-	int		i;
-	int		j;
 	char	*ptr;
+	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 2);
+	if (!s1)
+		return (NULL);
+	ptr = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (!ptr)
 		return (0);
 	i = 0;
-	if (s1)
+	while (s1[i] != '\0')
 	{
-		while (s1[i])
-		{
-			ptr[i] = s1[i];
-			i++;
-		}
+		*(ptr + i) = *(s1 + i);
+		i++;
 	}
-	j = 0;
-	while (s2[j])
-	{
-		ptr[i + j] = s2[j];
-		j++;
-	}
-	ptr[i + j] = 32;
-	ptr[i + j + 1] = '\0';
+	*(ptr + i) = '\0';
 	return (ptr);
 }

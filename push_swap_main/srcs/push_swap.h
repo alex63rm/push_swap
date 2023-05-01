@@ -6,7 +6,7 @@
 /*   By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:43:08 by alejarod          #+#    #+#             */
-/*   Updated: 2023/02/24 22:52:04 by alejarod         ###   ########.fr       */
+/*   Updated: 2023/05/01 19:52:23 by alejarod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ long	ft_long_atoi(char *str);
 void	ft_putstr(char *str);
 char	*ft_strjoin_endspace(char *s1, char const *s2);
 int		ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
 
 /*-----------------------------------MAIN FT----------------------------------*/
 
