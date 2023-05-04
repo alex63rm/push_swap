@@ -6,7 +6,7 @@
 /*   By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:27:45 by alejarod          #+#    #+#             */
-/*   Updated: 2023/05/04 22:16:05 by alejarod         ###   ########.fr       */
+/*   Updated: 2023/05/04 23:17:28 by alejarod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_check_digits(char *str)
 	int	i;
 
 	i = 0;
+	if (ft_isalpha(str[0]))
+		return (1);
 	if (str[0] == '-' || str[0] == '+')
 	{
 		if (!ft_isdigit(str[i + 1]))

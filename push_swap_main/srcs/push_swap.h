@@ -6,7 +6,7 @@
 /*   By: alejarod <alejarod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 14:43:08 by alejarod          #+#    #+#             */
-/*   Updated: 2023/05/01 19:52:23 by alejarod         ###   ########.fr       */
+/*   Updated: 2023/05/04 22:56:55 by alejarod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_utils
 /*-----------------------------------LIBFT------------------------------------*/
 
 int		ft_isdigit(int c);
+int		ft_isalpha(int c);
 int		ft_isspace(int c);
 int		ft_check_digits(char *str);
 char	**ft_split(char *str);
